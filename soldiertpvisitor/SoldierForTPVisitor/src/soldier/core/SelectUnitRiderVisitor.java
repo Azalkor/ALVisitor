@@ -6,6 +6,7 @@ import java.util.Iterator;
 public class SelectUnitRiderVisitor implements Visitor{
 	private ArrayList<UnitRider> riders;
 	private float seuilHP;
+	String result = "";
 	
 	public SelectUnitRiderVisitor(int seuil) {
 		seuilHP=seuil;
@@ -18,14 +19,25 @@ public class SelectUnitRiderVisitor implements Visitor{
 		return tmp;
 	}
 	
+	public String getResult(){
+		UnitRider riders[] = this.getRiders();
+		for (UnitRider rider : riders){
+			result += rider.getName();
+		}
+		return result;
+	}
+	
 	public void reset(){
 		riders.clear();
+		result = "";
 	}
 	
 	@Override
 	public void visit(UnitRider u) {
-		if(u.getHealthPoints()>seuilHP)
+		if(u.getHealthPoints()>seuilHP){
+			System.out.println("Ajoutée avec:" + u.getHealthPoints() + "HP");
 			riders.add(u);
+		}
 	}
 
 	@Override
@@ -62,3 +74,4 @@ public class SelectUnitRiderVisitor implements Visitor{
 	}
 
 }
+

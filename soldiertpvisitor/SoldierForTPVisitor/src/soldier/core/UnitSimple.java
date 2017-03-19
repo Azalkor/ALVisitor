@@ -1,13 +1,11 @@
 /**
  * D. Auber & P. Narbel
- * Solution TD Architecture Logicielle 2016 Universitï¿½ Bordeaux.
+ * Solution TD Architecture Logicielle 2016 Université Bordeaux.
  */
 package soldier.core;
 
 import java.util.Collections;
 import java.util.Iterator;
-
-import soldier.util.DeadUnitCounterObserver;
 
 public abstract class UnitSimple extends UnitObservableAbstract {
 

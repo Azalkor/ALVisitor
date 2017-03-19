@@ -3,6 +3,8 @@ package soldier.core;
 import java.util.Iterator;
 
 public class DisplayAttackEquipmentVisitor implements Visitor{
+	
+	private String result = "";
 
 	@Override
 	public void visit(UnitRider u) {
@@ -33,7 +35,12 @@ public class DisplayAttackEquipmentVisitor implements Visitor{
 
 	@Override
 	public void visit(EquipmentAttack e) {
+		result+=(e.getName());
 		System.out.println(e.getName());
+	}
+	
+	public String getResult(){
+		return result;
 	}
 
 	@Override
