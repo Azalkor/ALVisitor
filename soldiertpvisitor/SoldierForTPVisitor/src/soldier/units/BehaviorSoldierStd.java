@@ -1,10 +1,11 @@
 /**
  * D. Auber & P. Narbel
- * Solution TD Architecture Logicielle 2016 Université Bordeaux.
+ * Solution TD Architecture Logicielle 2016 Universitï¿½ Bordeaux.
  */
 package soldier.units;
 
 import soldier.core.BehaviorSoldier;
+import soldier.util.DeadUnitCounterObserver;
 
 public class BehaviorSoldierStd implements BehaviorSoldier {
 	private float healthPoints;

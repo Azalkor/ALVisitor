@@ -4,13 +4,20 @@
  */
 package test;
 
+import java.util.Iterator;
+
 import soldier.ages.AgeFutureFactory;
 import soldier.ages.AgeMiddleFactory;
 import soldier.core.AgeAbstractFactory;
 import soldier.core.DisplayAttackEquipmentVisitor;
+import soldier.core.SelectUnitRiderVisitor;
 import soldier.core.Unit;
 import soldier.core.UnitCounterVisitor;
 import soldier.core.UnitGroup;
+import soldier.core.UnitObserver;
+import soldier.core.UnitRider;
+import soldier.util.DeadUnitCounterObserver;
+import soldier.util.Util;
 
 public class MainFightTwoAges {
 
@@ -35,6 +42,7 @@ public class MainFightTwoAges {
 	
 	public static void main(String[] args) {
 		UnitCounterVisitor counter = new UnitCounterVisitor();
+		SelectUnitRiderVisitor selector = new SelectUnitRiderVisitor(10);
 		DisplayAttackEquipmentVisitor displayAtk = new DisplayAttackEquipmentVisitor();
 		AgeAbstractFactory age1 = new AgeMiddleFactory();
 		AgeAbstractFactory age2 = new AgeFutureFactory();
@@ -42,7 +50,7 @@ public class MainFightTwoAges {
 		Unit team1 = createTeam(age1, "Team1::"); 
 		counter.visit((UnitGroup)team1);
 		int tmp = counter.getCount();
-		counter.clear();
+		counter.reset();
 		System.out.println("team1 est composée de "+tmp+" unités");
 		Unit team2 = createTeam(age2, "Team2::"); 
 		counter.visit((UnitGroup)team2);
@@ -50,7 +58,16 @@ public class MainFightTwoAges {
 		System.out.println("team2 est composée de "+tmp+" unités");
 		displayAtk.visit((UnitGroup)team1);
 		
-
+		selector.visit((UnitGroup)team1);
+		UnitRider riders[] = selector.getRiders();
+		System.out.println("Liste des riders :");
+		for (UnitRider r : riders) {
+			System.out.println(r.getName());
+		}
+		
+		DeadUnitCounterObserver deadUnits = new DeadUnitCounterObserver();
+		Util.propagerObserver((UnitGroup) team2, deadUnits);
+		
 		int round = 0;
 		while(team1.alive() && team2.alive()) {
 			System.out.println("Round  #" + round++);
@@ -62,6 +79,8 @@ public class MainFightTwoAges {
 			team1.parry(st2);
 		}
 		System.out.println("The end ... " + (team1.alive() ? team1.getName() : team2.getName()) + " won." );
+		
+		System.out.println("pertes : "+deadUnits.getNumberOfDeadUnits());
 	}
-
+	
 }

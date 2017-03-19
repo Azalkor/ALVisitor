@@ -10,7 +10,7 @@ public class UnitCounterVisitor implements Visitor{
 		return count;
 	}
 	
-	public void clear(){
+	public void reset(){
 		count=0;
 	}
 		

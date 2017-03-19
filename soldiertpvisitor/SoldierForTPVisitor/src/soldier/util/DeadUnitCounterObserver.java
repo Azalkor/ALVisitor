@@ -1,6 +1,6 @@
 /**
  * D. Auber & P. Narbel
- * Solution TD Architecture Logicielle 2016 Université Bordeaux.
+ * Solution TD Architecture Logicielle 2016 Universitï¿½ Bordeaux.
  */
 package soldier.util;
 
@@ -14,8 +14,8 @@ public class DeadUnitCounterObserver implements UnitObserver {
 	public void update(Unit unit) {
 		if (!unit.alive()) {
 			++deadUnit;
-			// System.out.println(unit.getName() + " is the " + deadUnit +
-			// "th death, please stop war !!!");
+			System.out.println(unit.getName() + " is the " + deadUnit +
+			"th death, please stop war !!!");
 			unit.removeObserver(this);
 		}
 	}

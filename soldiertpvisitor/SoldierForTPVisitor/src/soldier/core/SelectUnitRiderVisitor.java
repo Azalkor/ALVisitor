@@ -1,17 +1,31 @@
 package soldier.core;
 
-public class SelectUnitRiderVisitor implements Visitor{
+import java.util.ArrayList;
+import java.util.Iterator;
 
-	private int seuilHP;
+public class SelectUnitRiderVisitor implements Visitor{
+	private ArrayList<UnitRider> riders;
+	private float seuilHP;
 	
 	public SelectUnitRiderVisitor(int seuil) {
 		seuilHP=seuil;
+		riders=new ArrayList<UnitRider>();
+	}
+	
+	public UnitRider[] getRiders(){
+		UnitRider tmp[] = new UnitRider[riders.size()];
+		riders.toArray(tmp);
+		return tmp;
+	}
+	
+	public void reset(){
+		riders.clear();
 	}
 	
 	@Override
 	public void visit(UnitRider u) {
-		// TODO Auto-generated method stub
-		
+		if(u.getHealthPoints()>seuilHP)
+			riders.add(u);
 	}
 
 	@Override
@@ -22,8 +36,11 @@ public class SelectUnitRiderVisitor implements Visitor{
 
 	@Override
 	public void visit(UnitGroup u) {
-		// TODO Auto-generated method stub
-		
+		Iterator<Unit> i = u.subUnits();
+		while(i.hasNext()){
+			Unit tmp = i.next();
+			tmp.accept(this);
+		}
 	}
 
 	@Override
