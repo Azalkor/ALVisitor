@@ -1,0 +1,1 @@
+Exercice 1 : modifier code des exemples (mainfight) pour afficher le nombre de soldats morts (DeadUnitCounterObserver)
